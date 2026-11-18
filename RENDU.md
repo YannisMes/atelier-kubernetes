@@ -50,8 +50,8 @@ site-75775484b-tmrqn   1/1    Running  0         86s  10.42.2.5   k3d-lab-agent-
  
 10. Avec l'image `nginx:9.99`, quel statut avait le pod ? Quelle commande vous a donné la cause ?
     > Le pod est resté en ImagePullBackOff (il passe d’abord par ErrImagePull) et n’est jamais Ready (0/1). J’ai trouvé la cause avec kubectl describe pod <nom-du-pod>, dans la section Events en bas : l’image nginx:9.99 n’a pas pu être téléchargée, car cette version n’existe pas (failed to pull and unpack image ... nginx:9.99: not found).
-12. Pendant la panne, le site restait-il accessible ? Pourquoi ?
-    >
+11. Pendant la panne, le site restait-il accessible ? Pourquoi ?
+    >Oui le site est resté accessible pendant la panne, car pendant la panne, les endpoints lisent tjr les 3 anciennes IP.
 
 ## Exercice 6 — Portainer & Mario
 
