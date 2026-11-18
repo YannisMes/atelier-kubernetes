@@ -41,13 +41,16 @@
 
 ## Exercice 5 — Scaling & mises à jour
 
-9. Sur quels nœuds se trouvent vos 3 réplicas ? Collez la sortie de `kubectl get pods -l app=site -o wide`.
-   ```
+9. Sur quels nœuds se trouvent vos 3 réplicas ? Collez la sortie de `kubectl get pods -l app=site -o wide` Les 3 pods sont répartis sur les 3 nœuds, un par nœud, y compris le control-plane. Voici ce que j’ai obtenu avec kubectl get pods -l app=site -o wide après être passé à 3 réplicas : 
+NAME                   READY  STATUS   RESTARTS  AGE  IP          NODE
+site-75775484b-fjlv4   1/1    Running  0         16s  10.42.0.8   k3d-lab-agent-1
+site-75775484b-pcp9j   1/1    Running  0         16s  10.42.1.5   k3d-lab-server-0
+site-75775484b-tmrqn   1/1    Running  0         86s  10.42.2.5   k3d-lab-agent-0
 
-   ```
+ 
 10. Avec l'image `nginx:9.99`, quel statut avait le pod ? Quelle commande vous a donné la cause ?
-    >
-11. Pendant la panne, le site restait-il accessible ? Pourquoi ?
+    > Le pod est resté en ImagePullBackOff (il passe d’abord par ErrImagePull) et n’est jamais Ready (0/1). J’ai trouvé la cause avec kubectl describe pod <nom-du-pod>, dans la section Events en bas : l’image nginx:9.99 n’a pas pu être téléchargée, car cette version n’existe pas (failed to pull and unpack image ... nginx:9.99: not found).
+12. Pendant la panne, le site restait-il accessible ? Pourquoi ?
     >
 
 ## Exercice 6 — Portainer & Mario
