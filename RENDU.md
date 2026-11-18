@@ -34,9 +34,10 @@
 ## Exercice 4 — Déclaratif
 
 7. Quelle différence entre `kubectl create` et `kubectl apply` ?
-   >
+   > la commande kubectl create est impérative : elle crée l'objet et s'il existe déjà elle renvoie une erreur. Kubectl apply est declaratif : je donne un fichier qui décrit l’état voulu, et Kubernetes crée l’objet s’il n’existe pas ou le met à jour s’il existe
+   > 
 8. À quoi sert le `selector` d'un Service ? Que se passe-t-il s'il ne correspond à aucun pod ?
-   >
+   >Le selector indique au Service quels pods il doit cibler : il choisit ceux qui ont les labels correspondants (par exemple app: site). Le Service envoie le trafic vers ces pods. Si le selector ne correspond à aucun pod, le Service n’a aucune cible : kubectl get endpoints site affiche <none> et le site est inaccessible, même si le Service existe et que les pods tournent. Il faut que les labels du selector soient identiques à ceux du modèle de pod du Deployment.
 
 ## Exercice 5 — Scaling & mises à jour
 
