@@ -27,9 +27,9 @@
 ## Exercice 3 — Modifier un conteneur en direct
 
 5. Après suppression du pod, votre message « Bienvenue... » a-t-il survécu ? Pourquoi ?
-   >
+   > Non, le message a disparu et la page nginx par défaut est revenue. J’avais modifié le fichier index.html directement dans le conteneur du pod web-68d995574f-lh7g9. Quand j’ai supprimé ce pod, Kubernetes en a recréé un nouveau à partir de l’image nginx d’origine, qui ne contient pas ma modification. Le système de fichiers d’un conteneur est éphémère : ce qu’on change à la main dans un pod est perdu dès que le pod est supprimé. Pour que la modification reste, il faut la mettre dans la configuration (c’est ce qu’on fait avec la ConfigMap à l’exercice 4) ou dans l’image.
 6. Pourquoi le `port-forward` a-t-il cessé de fonctionner après la suppression du pod ?
-   >
+   >Le port-forward ne se branche pas sur le Service de façon permanente. Au lancement, il choisit un pod précis derrière le Service et crée le tunnel vers celui-là. Quand j’ai supprimé ce pod, la connexion est coupée et la commande s’arrête (le message « lost connection to pod » apparaît dans /tmp/web.log). Il ne bascule pas tout seul sur le nouveau pod, donc il faut relancer la commande pour qu’elle se connecte au nouveau.
 
 ## Exercice 4 — Déclaratif
 
